@@ -17,6 +17,20 @@ async function createPdf(input, output) {
 
         const form = pdfDoc.getForm();
         
+        const possibleFields = Array.from({ length: 21}, (_, i) => i);
+        possibleFields.forEach((possibleField) => {
+            try {
+                form
+                .getTextField(`Text${possibleField}`)
+                .setText(possibleField.toString());
+            } catch (err) {
+                console.log(err);
+            }
+        });
+        
+        form.getTextField('jobName').setText('Umass Amherst');
+        form.getCheckBox('equipmentInUseYes').check();
+
         const pdfBytes = await pdfDoc.save();
 
         await writeFile(output, pdfBytes);

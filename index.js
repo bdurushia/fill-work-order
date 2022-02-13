@@ -40,4 +40,18 @@ async function createPdf(input, output) {
     }
 }
 
+const promptUser = () => {
+    return inquirer.prompt([
+        {
+            type: 'input',
+            name: 'jobName',
+            message: 'Job name: '
+        }
+    ]).then(jobNameInput => {
+        return console.log(jobNameInput);
+    });
+}
+
+promptUser();
+
 createPdf('./forms/work-order-form.pdf', './forms/output.pdf');
